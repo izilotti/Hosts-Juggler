@@ -26,13 +26,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
+
+import com.zilotti.hostsjuggler.logging.LogFactory;
+import com.zilotti.utils.FileUtils;
 
 /**
  * Main class.
@@ -44,14 +42,8 @@ import org.apache.log4j.PatternLayout;
 public class HostsJugglerMain
 {
 	/** Logger */
-	private static final Logger log;
+	private static final Logger log = LogFactory.getLogger(HostsJugglerMain.class);
 	
-	/** Temporary directory name */
-	private static final String TEMP_DIRECTORY_NAME = ".hostsJuggler";
-	
-	/** Log file name */
-	private static final String LOGGING_FILE_NAME = "HostsJuggler.log";
-
 	/** Static initialization block */
 	static
 	{
@@ -59,21 +51,12 @@ public class HostsJugglerMain
 		systemInitializer();
 		
 		/* Initializes this class' logger */
-		log = Logger.getLogger(HostsJugglerMain.class);
+//		log = Logger.getLogger(HostsJugglerMain.class);
 	}
 	
 	
 
-	/**
-	 * Obtains the path to the temporary folder associated to
-	 * the current user.
-	 * 
-	 * @return
-	 */
-	private static String getTempPath()
-	{
-		return System.getProperty("user.home") + File.separatorChar + TEMP_DIRECTORY_NAME;
-	}
+
 
 	
 	/**
@@ -88,7 +71,7 @@ public class HostsJugglerMain
 			if(log.isDebugEnabled())
 			{
 				log.debug("System tray supported!");
-				log.debug("Temporary folder: "+ getTempPath());
+				log.debug("Temporary folder: "+ FileUtils.getTempPath());
 			}
 			
 			SystemTray tray = SystemTray.getSystemTray();
@@ -212,28 +195,28 @@ public class HostsJugglerMain
 	 */
 	private static void systemInitializer()
 	{
-		try
-		{
-			/*
-			 * Logging
-			 */
-			Logger rootLogger = Logger.getRootLogger();
-			
-			/* Console appender */
-			rootLogger.setLevel(Level.DEBUG);
-			rootLogger.addAppender(new ConsoleAppender(new PatternLayout("%d{yyyy-MM-dd HH:mm:ss} %c{1} [%p] %m%n")));
-	
-			/*
-			 * File appender
-			 */
-			String logginFilePath = getTempPath().concat(String.valueOf(File.separatorChar)).concat(LOGGING_FILE_NAME);
-			FileAppender fileAppender = new FileAppender(new PatternLayout("%d{yyyy-MM-dd HH:mm:ss} %c{1} [%p] %m%n"), logginFilePath);
-			rootLogger.addAppender(fileAppender);
-		}
-		catch(Exception e)
-		{
-			System.out.println("Error initializing system!");
-			e.printStackTrace();
-		}
+//		try
+//		{
+//			/*
+//			 * Logging
+//			 */
+//			Logger rootLogger = Logger.getRootLogger();
+//			
+//			/* Console appender */
+//			rootLogger.setLevel(Level.DEBUG);
+//			rootLogger.addAppender(new ConsoleAppender(new PatternLayout("%d{yyyy-MM-dd HH:mm:ss} %c{1} [%p] %m%n")));
+//	
+//			/*
+//			 * File appender
+//			 */
+//			String logginFilePath = FileUtils.getTempPath().concat(String.valueOf(File.separatorChar)).concat(LOGGING_FILE_NAME);
+//			FileAppender fileAppender = new FileAppender(new PatternLayout("%d{yyyy-MM-dd HH:mm:ss} %c{1} [%p] %m%n"), logginFilePath);
+//			rootLogger.addAppender(fileAppender);
+//		}
+//		catch(Exception e)
+//		{
+//			System.out.println("Error initializing system!");
+//			e.printStackTrace();
+//		}
 	}	
 }
