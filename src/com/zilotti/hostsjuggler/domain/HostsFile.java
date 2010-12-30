@@ -19,6 +19,15 @@ public class HostsFile implements Serializable
 	/** The lines of the file */
 	private List<HostsFileLine> hostsFileLines;
 	
+	/** Identifier (automatically generated, unique) */
+	private Long id;
+	
+	/** Name (cannot be empty) */
+	private String name;
+	
+	/** Description */
+	private String description;
+	
 	
 	/**
 	 * @param hostsFileLines
@@ -48,4 +57,39 @@ public class HostsFile implements Serializable
 	{
 		this.hostsFileLines = hostsFileLines;
 	}
+
+	public Long getId()
+	{
+		return id;
+	}
+
+	public void setId(Long id)
+	{
+		this.id = id;
+	}
+
+
+	public String getName()
+	{
+		return name;
+	}
+
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+
+	public String getDescription()
+	{
+		return description;
+	}
+
+
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
+	
 }
